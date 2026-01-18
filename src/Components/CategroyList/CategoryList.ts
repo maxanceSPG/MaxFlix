@@ -28,9 +28,12 @@ export class CategoryList implements AfterViewInit, OnDestroy, OnChanges {
   items: Item[] = [];
 
   async ngOnChanges(changes: SimpleChanges) {
-
     if (changes['category'] && changes['category'].currentValue && this.category) {
       this.items = await getMoviesByGenre(this.category.id);
+      // Attendre que le DOM soit mis à jour avant de vérifier le overflow
+      setTimeout(() => {
+        this.checkOverflow();
+      }, 0);
     }
   }
 
@@ -94,7 +97,7 @@ export class CategoryList implements AfterViewInit, OnDestroy, OnChanges {
         'clientWidth:',
         element.clientWidth,
         'showArrows:',
-        this.showArrows,
+        this.showArrows(),
       );
     } else {
       this.showArrows.set(false);
