@@ -26,7 +26,7 @@ export class Login {
       return;
     }
 
-    if (this.auth.token()) {
+    if (this.auth.isAuthenticated()) {
       this.router.navigate(['/home']);
     } else {
       alert('Login failed. Please check your credentials.');

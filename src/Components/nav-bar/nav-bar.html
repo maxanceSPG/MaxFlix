@@ -27,10 +27,10 @@
       </a>
     </div>
 
-    @if (auth.currentUser()) {
+    @if (auth.getCurrentUser()) {
       <div class="user-profile">
         <lucide-icon [img]="User" class="icon"></lucide-icon>
-        <span class="username">{{ auth.currentUser()?.name }}</span>
+        <span class="username">{{ auth.getCurrentUser()?.name }}</span>
         <button class="logout-btn" (click)="auth.logout()" title="Déconnexion">
           <lucide-icon [img]="LogOut" class="icon"></lucide-icon>
         </button>
