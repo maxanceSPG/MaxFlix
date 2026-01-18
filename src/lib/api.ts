@@ -8,7 +8,7 @@ const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 /**
  * Authentifie un utilisateur avec ses identifiants email et mot de passe.to an authentication response containing the user object and JWT token
- * 
+ *
  * @param email - L'adresse email de l'utilisateur
  * @param password - Le mot de passe de l'utilisateur
  * @returns Une promesse qui résout en une réponse d'authentification contenant l'objet utilisateur et le token JWT
@@ -40,6 +40,45 @@ export async function logout(token: string): Promise<void> {
 }
 
 /**
+ * Permet de récupérer la liste des favorits d'un utilisateur
+ * @param token - Le token JWT de l'utilisateur
+ * @returns Promise<Item[]>
+ */
+export async function getUserFavorites(token: string): Promise<Item[]> {
+  await delay(500);
+  // Pour la simulation, on retourne les 3 premiers films comme favoris
+  return mockMovies.slice(0, 3);
+}
+
+/**
+ * Permet d'ajouter un film aux favoris de l'utilisateur
+ * @param token - Le token JWT de l'utilisateur
+ * @param movieId - L'identifiant du film à ajouter
+ * @returns Promise<void>
+ */
+export async function addUserFavorite(
+  token: string,
+  movieId: string,
+): Promise<void> {
+  await delay(500);
+  // Simulation : aucune action réelle n'est effectuée
+}
+
+/**
+ * Permet de retirer un film des favoris de l'utilisateur
+ * @param token - Le token JWT de l'utilisateur
+ * @param movieId - L'identifiant du film à retirer
+ * @returns Promise<void>
+ */
+export async function removeUserFavorite(
+  token: string,
+  movieId: string,
+): Promise<void> {
+  await delay(500);
+  // Simulation : aucune action réelle n'est effectuée
+}
+
+/**
  * Récupère toutes les catégories avec leurs films
  * @returns Promise<Category[]>
  */
@@ -54,7 +93,7 @@ export async function getCategories(): Promise<Category[]> {
  * @returns Promise<Category | null>
  */
 export async function getCategoryById(categoryId: string): Promise<Category | null> {
-  await delay(300);
+  await delay(500);
   const category = mockCategories.find((cat) => cat.id === categoryId);
   return category || null;
 }
@@ -74,7 +113,7 @@ export async function getAllMovies(): Promise<Item[]> {
  * @returns Promise<Movie | null>
  */
 export async function getMovieById(movieId: string): Promise<Item | null> {
-  await delay(300);
+  await delay(500);
   const movie = mockMovies.find((m) => m.id === movieId);
   return movie || null;
 }
@@ -84,7 +123,7 @@ export async function getMovieById(movieId: string): Promise<Item | null> {
  * @returns Promise<Movie[]>
  */
 export async function getFeaturedMovies(): Promise<Item[]> {
-  await delay(400);
+  await delay(500);
   return mockMovies.filter((movie) => movie.featured);
 }
 
@@ -94,7 +133,7 @@ export async function getFeaturedMovies(): Promise<Item[]> {
  * @returns Promise<Movie[]>
  */
 export async function searchMovies(query: string): Promise<Item[]> {
-  await delay(400);
+  await delay(500);
   const lowerQuery = query.toLowerCase();
   return mockMovies.filter((movie) => movie.title.toLowerCase().includes(lowerQuery));
 }
@@ -105,7 +144,7 @@ export async function searchMovies(query: string): Promise<Item[]> {
  * @returns Promise<Movie[]>
  */
 export async function getMoviesByGenre(genre: string): Promise<Item[]> {
-  await delay(400);
+  await delay(500);
   return mockMovies.filter((movie) =>
     movie.genre.some((g) => g.toLowerCase() === genre.toLowerCase()),
   );
@@ -121,7 +160,7 @@ export async function getMoviesWithPagination(
   limit: number = 10,
   offset: number = 0,
 ): Promise<Item[]> {
-  await delay(400);
+  await delay(500);
   return mockMovies.slice(offset, offset + limit);
 }
 
@@ -130,7 +169,7 @@ export async function getMoviesWithPagination(
  * @returns Promise<Movie>
  */
 export async function getRandomMovie(): Promise<Item> {
-  await delay(200);
+  await delay(500);
   const randomIndex = Math.floor(Math.random() * mockMovies.length);
   return mockMovies[randomIndex];
 }
