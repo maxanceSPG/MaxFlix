@@ -7,9 +7,9 @@ import { login, logout } from '../lib/api';
 })
 export class AuthService {
   // Signal qui contient l'utilisateur courant ou null
-  currentUser = signal<User | null>(null);
+  private currentUser = signal<User | null>(null);
   // Signal pour le token
-  token = signal<string | null>(null);
+  private token = signal<string | null>(null);
 
   constructor() {
     // Vérifier si l'utilisateur et le token sont déjà présents via localStorage
@@ -35,7 +35,7 @@ export class AuthService {
       }
     } catch (error) {
       console.error('Login failed', error);
-        throw error;
+      throw error;
     }
   }
 
@@ -50,5 +50,16 @@ export class AuthService {
     this.token.set(null);
     localStorage.removeItem('user');
     localStorage.removeItem('token');
+  }
+
+  isAuthenticated(): boolean {
+    return this.token() !== null;
+  }
+
+  getToken(): string | null {
+    return this.token();
+  }
+  getCurrentUser(): User | null {
+    return this.currentUser();
   }
 }
