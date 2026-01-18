@@ -1,58 +1,105 @@
-# MaxFlix
+# CacaFlix
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.3.
+Une application de streaming de films et séries, inspirée de Netflix, construite avec Angular.
 
-## Development server
+Ce projet a été généré avec [Angular CLI](https://github.com/angular/angular-cli) version 20.3.3.
 
-To start a local development server, run:
+## ⚠️ Important : Pas de Backend
 
-```bash
-ng serve
-```
+Ce projet est une application **frontend uniquement**. Il n'y a pas de backend réel, toutes les données sont mockées :
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- **Authentification** : Les identifiants de connexion sont hardcodés (`test@mail.com` / `password`)
+- **Données utilisateur** : Les favoris et préférences sont simulés
+- **API Films** : Les données proviennent de l'API The Movie Database (TMDB)
 
-## Code scaffolding
+## Configuration de l'environnement
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### Fichier `environment.ts`
 
-```bash
-ng generate component component-name
-```
+Le projet utilise des variables d'environnement pour gérer les clés API et configurations. Ces fichiers sont **ignorés par Git** pour des raisons de sécurité.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+**1. Créer votre fichier d'environnement :**
 
 ```bash
-ng generate --help
+# Copiez le template
+cp src/environments/environment.example.ts src/environments/environment.ts
+cp src/environments/environment.example.ts src/environments/environment.prod.ts
 ```
 
-## Building
+**2. Ajoutez votre clé API TMDB :**
 
-To build the project run:
+Ouvrez `src/environments/environment.ts` et remplacez `VOTRE_CLE_API_TMDB_ICI` par votre clé API :
+
+```typescript
+export const environment = {
+  production: false,
+  tmdbApiKey: 'votre_cle_api_ici',
+  tmdbApiUrl: 'https://api.themoviedb.org/3',
+};
+```
+
+**Obtenir une clé API TMDB :**
+
+1. Créez un compte sur [The Movie Database](https://www.themoviedb.org/)
+2. Allez dans Paramètres > API
+3. Demandez une clé API (gratuite)
+
+## Serveur de développement
+
+Pour démarrer un serveur de développement local :
+
+```bash
+npm run start
+```
+
+Ouvrez votre navigateur et naviguez vers `http://localhost:4200/`. L'application se rechargera automatiquement à chaque modification des fichiers source.
+
+## 🔐 Connexion
+
+Utilisez les identifiants suivants pour vous connecter (données mockées) :
+
+- **Email** : `test@mail.com`
+- **Mot de passe** : `password`
+
+## 📁 Structure du projet
+
+```
+src/
+├── app/                    # Composants de pages (Home, Login, Favorites, etc.)
+├── Components/            # Composants réutilisables (Card, Hero, CategoryList, etc.)
+├── lib/
+│   ├── api.ts            # Fonctions API (TMDB + mocks)
+│   ├── types.ts          # Types TypeScript
+│   └── mock.ts           # Données mockées (utilisateur, favoris)
+└── environments/         # Configuration des variables d'environnement 
+```
+
+## 🛠️ Technologies utilisées
+
+- **Angular 20.3.3** avec Standalone Components
+- **TypeScript**
+- **Signals** pour la gestion d'état réactive
+- **Lucide Angular** pour les icônes
+- **TMDB API** pour les données de films/séries
+
+## 📦 Build
+
+Pour compiler le projet :
 
 ```bash
 ng build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Les artefacts de build seront stockés dans le répertoire `dist/`. Par défaut, le build de production optimise l'application pour les performances et la vitesse.
 
-## Running unit tests
+## 🚀 Fonctionnalités
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+- ✅ Navigation entre pages (Home, Films, Séries, Favoris)
+- ✅ Authentification simulée
+- ✅ Affichage des catégories de films par genre
+- ✅ Gestion des favoris (simulée)
+- ✅ Hero section avec film en vedette
+- ✅ Design responsive inspiré de Netflix
 
 ## Additional Resources
 
