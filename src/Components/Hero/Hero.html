@@ -8,11 +8,25 @@
     <div class="actions">
         <button class="btn playBtn">
             <lucide-icon [img]="Play" class="icon"></lucide-icon>
-            Play
+            Lecture
         </button>
         <button class="btn">
-            More Info
+            <lucide-icon [img]="Info" class="icon"></lucide-icon>
+            Plus d'infos
         </button>
+        @if (showBtnFavorites) {
+            @if (isInFavorites) {
+                <button class="btn" (click)="auth.removeUserFavorite(movie?.id!)">
+                    <lucide-icon [img]="Check" class="icon"></lucide-icon>
+                    Retirer de ma liste
+                </button>
+            } @else {
+                <button class="btn" (click)="auth.addUserFavorite(movie?.id!)">
+                    <lucide-icon [img]="Plus" class="icon"></lucide-icon>
+                    Ajouter à ma liste
+                </button>
+            }
+        }
     </div>
   </div>
 </div>

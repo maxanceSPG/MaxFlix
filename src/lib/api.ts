@@ -65,6 +65,26 @@ export async function addUserFavorite(
 }
 
 /**
+ * Permet de savoir si un film est dans les favoris de l'utilisateur
+ * @param token - Le token JWT de l'utilisateur
+ * @param movieId - L'identifiant du film à vérifier
+ * @returns Promise<boolean>
+ */
+export async function isUserFavorite(
+  token: string,
+  movieId: string,
+): Promise<boolean> {
+  await delay(500);
+  // Simulation : on considère que les films avec un ID pair sont dans les favoris
+  const movie = mockMovies.find((m) => m.id === movieId);
+  if (!movie) {
+    return false;
+  }
+  const movieIndex = mockMovies.indexOf(movie);
+  return movieIndex % 2 === 0;
+}
+
+/**
  * Permet de retirer un film des favoris de l'utilisateur
  * @param token - Le token JWT de l'utilisateur
  * @param movieId - L'identifiant du film à retirer

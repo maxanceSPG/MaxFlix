@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 import { User } from '../lib/types';
-import { login, logout } from '../lib/api';
+import { addUserFavorite, isUserFavorite, login, logout, removeUserFavorite } from '../lib/api';
 
 @Injectable({
   providedIn: 'root',
@@ -61,5 +61,42 @@ export class AuthService {
   }
   getCurrentUser(): User | null {
     return this.currentUser();
+  }
+
+  async isUserFavorite(movieId: string): Promise<boolean> {
+    const token = this.token();
+    if (token) {
+      try {
+        const isFavorite = await isUserFavorite(token, movieId);
+        return isFavorite;
+      } catch (error) {
+        console.error('Erreur pendant la vérification des favoris:', error);
+      }
+    }
+    return false;
+  }
+
+  addUserFavorite(movieId: string): Promise<void> {
+    const token = this.token();
+    if (token) {
+      try {
+        return addUserFavorite(token, movieId);
+      } catch (error) {
+        console.error("Erreur pendant l'ajout aux favoris:", error);
+      }
+    }
+    return Promise.reject('User is not authenticated');
+  }
+
+  removeUserFavorite(movieId: string): Promise<void> {
+    const token = this.token();
+    if (token) {
+      try {
+        return removeUserFavorite(token, movieId);
+      } catch (error) {
+        console.error("Erreur pendant la suppression des favoris:", error);
+      }
+    }
+    return Promise.reject('User is not authenticated');
   }
 }
