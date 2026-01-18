@@ -1,5 +1,5 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { LucideAngularModule, FileIcon, User, Menu, Search, LogOut } from 'lucide-angular';
+import { LucideAngularModule, FileIcon, User, Menu, Search, LogOut, Heart } from 'lucide-angular';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../app/auth.service';
 
@@ -15,8 +15,12 @@ export class NavBar implements OnInit, OnDestroy {
   readonly FileIcon = FileIcon;
   readonly Search = Search;
   readonly LogOut = LogOut;
+  readonly Heart = Heart;
 
-  constructor(public auth: AuthService, public router: Router) {}
+  constructor(
+    public auth: AuthService,
+    public router: Router,
+  ) {}
 
   // Si vrai, on affiche un fond derrière la navbar
   showBackground: boolean = false;

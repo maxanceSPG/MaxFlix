@@ -18,7 +18,14 @@
   </div>
 
   <div class="right">
+
     <lucide-icon [img]="Search" class="icon"></lucide-icon>
+
+    <div>
+      <a routerLink="/favorites">
+        <lucide-icon [img]="Heart" class="icon"></lucide-icon>
+      </a>
+    </div>
 
     @if (auth.currentUser()) {
       <div class="user-profile">
