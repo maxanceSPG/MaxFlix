@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { computed, Injectable, signal } from '@angular/core';
 import { User } from '../lib/types';
 import { addUserFavorite, isUserFavorite, login, logout, removeUserFavorite } from '../lib/api';
 
@@ -52,9 +52,8 @@ export class AuthService {
     localStorage.removeItem('token');
   }
 
-  isAuthenticated(): boolean {
-    return this.token() !== null;
-  }
+  // Computed signal qui retourne true si l'utilisateur est authentifié
+  isAuthenticated = computed(() => this.token() !== null);
 
   getToken(): string | null {
     return this.token();
@@ -94,7 +93,7 @@ export class AuthService {
       try {
         return removeUserFavorite(token, movieId);
       } catch (error) {
-        console.error("Erreur pendant la suppression des favoris:", error);
+        console.error('Erreur pendant la suppression des favoris:', error);
       }
     }
     return Promise.reject('User is not authenticated');

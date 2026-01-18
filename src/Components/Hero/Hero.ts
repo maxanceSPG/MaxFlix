@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, effect, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Item } from '../../lib/types';
 import { Check, Info, LucideAngularModule, Play, Plus } from 'lucide-angular';
 import { AuthService } from '../../app/auth.service';
@@ -12,7 +12,15 @@ import { AuthService } from '../../app/auth.service';
 export class Hero implements OnChanges {
   @Input() movie: Item | undefined;
 
-  constructor(public auth: AuthService) {}
+  constructor(public auth: AuthService) {
+    // S'abonner aux changements d'authentification pour mettre à jour l'affichage du bouton favoris si on se connecte ou déconnecte
+    effect(() => {
+      this.showBtnFavorites = this.auth.isAuthenticated();
+      if (this.auth.isAuthenticated() && this.movie) {
+        this.updateFavoriteStatus();
+      }
+    });
+  }
 
   readonly Check = Check;
   readonly Plus = Plus;
@@ -40,9 +48,6 @@ export class Hero implements OnChanges {
   async updateFavoriteStatus() {
     if (this.movie && this.auth.isAuthenticated()) {
       this.isInFavorites = await this.auth.isUserFavorite(this.movie.id);
-      this.showBtnFavorites = true;
-    } else {
-      this.showBtnFavorites = false;
     }
   }
 

@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, effect, OnInit } from '@angular/core';
 import { Item } from '../../lib/types';
 import { AuthService } from '../auth.service';
 import { getUserFavorites } from '../../lib/api';
 import { Card } from '../../Components/Card/Card';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-favorites',
@@ -11,9 +12,17 @@ import { Card } from '../../Components/Card/Card';
   styleUrl: './Favorites.css'
 })
 export class Favorites implements OnInit {
-  constructor(private auth: AuthService) {}
+  constructor(private auth: AuthService, router: Router) {
+    effect(() => {
+      if (!this.auth.isAuthenticated()) {
+        router.navigate(['/login']);
+      }
+    });
+  }
 
   items: Item[] = [];
+
+  
 
   ngOnInit() {
     // Vérifier si l'utilisateur est authentifié
