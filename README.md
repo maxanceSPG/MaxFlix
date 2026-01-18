@@ -1,8 +1,14 @@
-# CacaFlix
+# MaxFLix
 
 Une application de streaming de films et séries, inspirée de Netflix, construite avec Angular.
 
 Ce projet a été généré avec [Angular CLI](https://github.com/angular/angular-cli) version 20.3.3.
+
+J'avais tout juste commencé ce projet dans le but de me faire une plateforme avec du contenu vidéo auto hébèrgé, je l'ai mis de coté très rapidement.
+C'était donc le moment idéal pour le resortir pour WE. Tout ce que j'avais fait avant est au commit intial. Mes contributions pour ce porjet de WE sont les commit qui suivent.
+Dans ces contributions, on peut retrouver :
+  - la page de connexion et les comportements qui vont avec la connexion (certains affichage qui chnage, les favoris, deconnexion...).
+  - l'utilisation de données provenenant de l'api de TMDB pour afficher des films.
 
 ## ⚠️ Important : Pas de Backend
 
