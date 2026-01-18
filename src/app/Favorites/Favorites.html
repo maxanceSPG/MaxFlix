@@ -1,1 +1,8 @@
-<p>Favorites works!</p>
+<div class="container">
+    <h1>Vos Favoris</h1>
+    <div class="favorites-list">
+        @for (item of items; track item.id) {
+        <app-card [movie]="item"></app-card>
+        }
+    </div>
+</div>

@@ -1,1 +1,9 @@
+.container {
+  padding: 20px;
+}
 
+.favorites-list {
+  display: grid;
+  gap: 20px;
+  display: flex;
+}
