@@ -16,12 +16,12 @@
         </button>
         @if (showBtnFavorites) {
             @if (isInFavorites) {
-                <button class="btn" (click)="auth.removeUserFavorite(movie?.id!)">
+                <button class="btn" (click)="onClickFavorites()">
                     <lucide-icon [img]="Check" class="icon"></lucide-icon>
                     Retirer de ma liste
                 </button>
             } @else {
-                <button class="btn" (click)="auth.addUserFavorite(movie?.id!)">
+                <button class="btn" (click)="onClickFavorites()">
                     <lucide-icon [img]="Plus" class="icon"></lucide-icon>
                     Ajouter à ma liste
                 </button>

@@ -45,4 +45,28 @@ export class Hero implements OnChanges {
       this.showBtnFavorites = false;
     }
   }
+
+  onClickFavorites() {
+    if (!this.movie) return;
+
+    if (this.isInFavorites) {
+      this.auth
+        .removeUserFavorite(this.movie.id)
+        .then(() => {
+          this.isInFavorites = false;
+        })
+        .catch((error) => {
+          console.error('Error removing favorite:', error);
+        });
+    } else {
+      this.auth
+        .addUserFavorite(this.movie.id)
+        .then(() => {
+          this.isInFavorites = true;
+        })
+        .catch((error) => {
+          console.error('Error adding favorite:', error);
+        });
+    }
+  }
 }
