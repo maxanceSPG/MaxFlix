@@ -18,17 +18,13 @@
   </div>
 
   <div class="right">
-
     <lucide-icon [img]="Search" class="icon"></lucide-icon>
-
-    <div>
-      <a routerLink="/favorites">
-        <lucide-icon [img]="Heart" class="icon"></lucide-icon>
-      </a>
-    </div>
 
     @if (auth.getCurrentUser()) {
       <div class="user-profile">
+        <a routerLink="/favorites">
+          <lucide-icon [img]="Heart" class="icon"></lucide-icon>
+        </a>
         <lucide-icon [img]="User" class="icon"></lucide-icon>
         <span class="username">{{ auth.getCurrentUser()?.name }}</span>
         <button class="logout-btn" (click)="auth.logout()" title="Déconnexion">
