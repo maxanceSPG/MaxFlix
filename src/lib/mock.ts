@@ -1,4 +1,10 @@
-import { Item, Category } from './types';
+import { Item, Category, User } from './types';
+
+export const mockUser: User = {
+  id: 'u1',
+  name: 'Maxance',
+  email: 'test@cacaflix.com'
+};
 
 export const mockMovies: Item[] = [
   {

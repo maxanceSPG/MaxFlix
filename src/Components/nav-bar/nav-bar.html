@@ -19,8 +19,18 @@
 
   <div class="right">
     <lucide-icon [img]="Search" class="icon"></lucide-icon>
-    <lucide-icon [img]="User" class="icon"></lucide-icon>
-    <a routerLink="/login" class="loginBtn">Login</a>
-    <a routerLink="/signup" class="signupBtn">Sign Up</a>
+
+    @if (auth.currentUser()) {
+      <div class="user-profile">
+        <lucide-icon [img]="User" class="icon"></lucide-icon>
+        <span class="username">{{ auth.currentUser()?.name }}</span>
+        <button class="logout-btn" (click)="auth.logout()" title="Déconnexion">
+          <lucide-icon [img]="LogOut" class="icon"></lucide-icon>
+        </button>
+      </div>
+    } @else {
+      <a routerLink="/login" class="loginBtn">Login</a>
+      <a routerLink="/signup" class="signupBtn">Sign Up</a>
+    }
   </div>
 </div>

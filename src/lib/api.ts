@@ -1,10 +1,43 @@
-import { Item, Category } from './types';
-import { mockMovies, mockCategories } from './mock';
+import { Item, Category, User, AuthResponse } from './types';
+import { mockMovies, mockCategories, mockUser } from './mock';
 
 /**
  * Simule un délai réseau pour rendre le comportement plus réaliste
  */
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+/**
+ * Authentifie un utilisateur avec ses identifiants email et mot de passe.to an authentication response containing the user object and JWT token
+ * 
+ * @param email - L'adresse email de l'utilisateur
+ * @param password - Le mot de passe de l'utilisateur
+ * @returns Une promesse qui résout en une réponse d'authentification contenant l'objet utilisateur et le token JWT
+ * @throws Lance une erreur avec le message "Email ou mot de passe invalide" si les identifiants sont invalides
+ */
+export async function login(email: string, password: string): Promise<AuthResponse> {
+  await delay(800);
+  // Génération d'un faux token JWT
+  if (email !== 'test@mail.com' && password !== 'password') {
+    // Simule une erreur d'authentification
+    throw new Error('Email ou mot de passe invalide');
+  }
+
+  const token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.${btoa(JSON.stringify({ id: mockUser.id, email }))}.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c`;
+  return {
+    user: { ...mockUser, email },
+    token,
+  };
+}
+
+/**
+ * Déconnecte l'utilisateur en invalidant le token côté serveur
+ * @param token - Le token JWT de l'utilisateur
+ * @returns Promise<void>
+ */
+export async function logout(token: string): Promise<void> {
+  await delay(500);
+  // Ici, on simule simplement la déconnexion sans action réelle
+}
 
 /**
  * Récupère toutes les catégories avec leurs films
