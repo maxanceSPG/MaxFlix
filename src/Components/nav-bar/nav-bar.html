@@ -1,0 +1,26 @@
+<div class="navbar {{ showBackground ? 'black' : '' }}">
+  <div class="left">
+    <a routerLink="/home" class="logo">
+      <img src="/logo.png" alt="MaxFlix" />
+    </a>
+
+    <ul class="navLinks">
+      <li class="navLink" [class.active]="isActive('/home')">
+        <a routerLink="/home">Home</a>
+      </li>
+      <li class="navLink" [class.active]="isActive('/series')">
+        <a routerLink="/series">Series</a>
+      </li>
+      <li class="navLink" [class.active]="isActive('/films')">
+        <a routerLink="/films">Films</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="right">
+    <lucide-icon [img]="Search" class="icon"></lucide-icon>
+    <lucide-icon [img]="User" class="icon"></lucide-icon>
+    <a routerLink="/login" class="loginBtn">Login</a>
+    <a routerLink="/signup" class="signupBtn">Sign Up</a>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+.mainContainer {
+  padding-bottom: 68px;
+  background-color: var(--background);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}

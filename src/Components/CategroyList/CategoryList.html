@@ -1,0 +1,19 @@
+<div class="row">
+  <h3 class="title">{{ category?.title }}</h3>
+  @if (showArrows()) {
+    <button class="arrow arrowLeft" (click)="onClickArrow('left')">
+      <lucide-icon [img]="ChevronLeft" size="30" class="icon"></lucide-icon>
+    </button>
+  }
+
+  <div class="container" #categoryList>
+    @for (movie of category?.items; track movie) {
+      <app-card [movie]="movie"></app-card>
+    }
+  </div>
+  @if (showArrows()) {
+    <button class="arrow arrowRight" (click)="onClickArrow('right')">
+      <lucide-icon [img]="ChevronRight" size="30" class="icon"></lucide-icon>
+    </button>
+  }
+</div>

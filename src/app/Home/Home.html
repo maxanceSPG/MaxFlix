@@ -1,0 +1,6 @@
+<app-hero [movie]="movieHero"></app-hero>
+<div class="categoryContainer">
+  @for (category of categories; track category.id) {
+    <app-category-list [category]="category"></app-category-list>
+  }
+</div>

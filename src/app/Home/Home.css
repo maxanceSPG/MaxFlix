@@ -1,0 +1,12 @@
+.categoryContainer {
+  margin-top: 20px;
+  position: relative;
+  z-index: 20;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .categoryContainer {
+    margin-top: 0; /* Remove negative margin on mobile to prevent overlap */
+  }
+}
