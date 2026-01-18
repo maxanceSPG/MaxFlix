@@ -3,13 +3,17 @@ import {
   Component,
   ElementRef,
   Input,
+  OnChanges,
   OnDestroy,
   signal,
+  SimpleChange,
+  SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { Category } from '../../lib/types';
+import { Category, Item } from '../../lib/types';
 import { ChevronLeft, ChevronRight, LucideAngularModule } from 'lucide-angular';
 import { Card } from '../Card/Card';
+import { getMoviesByGenre } from '../../lib/api';
 
 @Component({
   selector: 'app-category-list',
@@ -17,9 +21,18 @@ import { Card } from '../Card/Card';
   templateUrl: './CategoryList.html',
   styleUrl: './CategoryList.css',
 })
-export class CategoryList implements AfterViewInit, OnDestroy {
+export class CategoryList implements AfterViewInit, OnDestroy, OnChanges {
   @Input()
   category: Category | undefined;
+
+  items: Item[] = [];
+
+  async ngOnChanges(changes: SimpleChanges) {
+
+    if (changes['category'] && changes['category'].currentValue && this.category) {
+      this.items = await getMoviesByGenre(this.category.id);
+    }
+  }
 
   // Référence au div contenant la liste des catégories
   @ViewChild('categoryList') categoryList: ElementRef<HTMLDivElement> | undefined;

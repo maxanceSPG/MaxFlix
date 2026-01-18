@@ -10,20 +10,23 @@ export interface AuthResponse {
 }
 
 export interface Item {
-  id: string;
+  adult: boolean;
+  backdrop_path: string;
+  genre_ids: number[];
+  id: number;
+  original_language: string;
+  original_title: string;
+  overview: string;
+  popularity: number;
+  poster_path: string;
+  release_date: string;
   title: string;
-  description: string;
-  thumbnailUrl: string;
-  videoUrl: string; // For the mock player
-  duration: string;
-  genre: string[];
-  rating: string; // e.g. "Match 98%"
-  year: number;
-  featured?: boolean;
+  video: boolean;
+  vote_average: number;
+  vote_count: number;
 }
 
 export interface Category {
   id: string;
-  title: string;
-  items: Item[];
+  name: string;
 }

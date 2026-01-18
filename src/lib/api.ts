@@ -1,5 +1,6 @@
+import { mockMovies, mockUser } from './mock';
 import { Item, Category, User, AuthResponse } from './types';
-import { mockMovies, mockCategories, mockUser } from './mock';
+import { environment } from '../environments/environment';
 
 /**
  * Simule un délai réseau pour rendre le comportement plus réaliste
@@ -46,8 +47,60 @@ export async function logout(token: string): Promise<void> {
  */
 export async function getUserFavorites(token: string): Promise<Item[]> {
   await delay(500);
-  // Pour la simulation, on retourne les 3 premiers films comme favoris
-  return mockMovies.slice(0, 3);
+  // Pour la simulation, on retourne 3  films comme favoris
+  return [
+    {
+      adult: false,
+      backdrop_path: '/ebyxeBh56QNXxSJgTnmz7fXAlwk.jpg',
+      genre_ids: [28, 878, 12],
+      id: 1242898,
+      original_language: 'en',
+      original_title: 'Predator: Badlands',
+      overview:
+        'Cast out from his clan, a young Predator finds an unlikely ally in a damaged android and embarks on a treacherous journey in search of the ultimate adversary.',
+      popularity: 420.2485,
+      poster_path: '/pHpq9yNUIo6aDoCXEBzjSolywgz.jpg',
+      release_date: '2025-11-05',
+      title: 'Predator: Badlands',
+      video: false,
+      vote_average: 7.796,
+      vote_count: 1491,
+    },
+    {
+      adult: false,
+      backdrop_path: '/gQimJqYMKCkwHIo8wwYKhmnCfBr.jpg',
+      genre_ids: [28, 80, 53],
+      id: 1242501,
+      original_language: 'en',
+      original_title: 'Icefall',
+      overview:
+        'A young Indigenous game warden arrests an infamous poacher only to discover that the poacher knows the location of a plane carrying millions of dollars that has crashed in a frozen lake. When a group of criminals and dirty cops are alerted to the poacher’s whereabouts, the warden and the poacher team up to fight back and escape across the treacherous lake before the ice melts.',
+      popularity: 291.7639,
+      poster_path: '/5Byv6nznAb2Izd0gHpODOXnuSbo.jpg',
+      release_date: '2025-10-16',
+      title: 'Icefall',
+      video: false,
+      vote_average: 6.542,
+      vote_count: 84,
+    },
+    {
+      adult: false,
+      backdrop_path: '/kwNIQW7egAmI66sb0zIugMbpCfU.jpg',
+      genre_ids: [28, 53, 80, 18, 9648],
+      id: 1306368,
+      original_language: 'en',
+      original_title: 'The Rip',
+      overview:
+        'Trust frays when a team of Miami cops discovers millions in cash inside a run-down stash house, calling everyone — and everything — into question.',
+      popularity: 291.2808,
+      poster_path: '/p4bW2sJKAwcHuLpfoZK7Zo63osA.jpg',
+      release_date: '2026-01-13',
+      title: 'The Rip',
+      video: false,
+      vote_average: 7.148,
+      vote_count: 294,
+    },
+  ];
 }
 
 /**
@@ -56,10 +109,7 @@ export async function getUserFavorites(token: string): Promise<Item[]> {
  * @param movieId - L'identifiant du film à ajouter
  * @returns Promise<void>
  */
-export async function addUserFavorite(
-  token: string,
-  movieId: string,
-): Promise<void> {
+export async function addUserFavorite(token: string, movieId: number): Promise<void> {
   await delay(500);
   // Simulation : aucune action réelle n'est effectuée
 }
@@ -70,10 +120,7 @@ export async function addUserFavorite(
  * @param movieId - L'identifiant du film à vérifier
  * @returns Promise<boolean>
  */
-export async function isUserFavorite(
-  token: string,
-  movieId: string,
-): Promise<boolean> {
+export async function isUserFavorite(token: string, movieId: number): Promise<boolean> {
   await delay(500);
   // Simulation : on considère que les films avec un ID pair sont dans les favoris
   const movie = mockMovies.find((m) => m.id === movieId);
@@ -90,10 +137,7 @@ export async function isUserFavorite(
  * @param movieId - L'identifiant du film à retirer
  * @returns Promise<void>
  */
-export async function removeUserFavorite(
-  token: string,
-  movieId: string,
-): Promise<void> {
+export async function removeUserFavorite(token: string, movieId: number): Promise<void> {
   await delay(500);
   // Simulation : aucune action réelle n'est effectuée
 }
@@ -103,19 +147,19 @@ export async function removeUserFavorite(
  * @returns Promise<Category[]>
  */
 export async function getCategories(): Promise<Category[]> {
-  await delay(500); // Simule un délai réseau
-  return mockCategories;
-}
-
-/**
- * Récupère une catégorie spécifique par son ID
- * @param categoryId - L'identifiant de la catégorie
- * @returns Promise<Category | null>
- */
-export async function getCategoryById(categoryId: string): Promise<Category | null> {
-  await delay(500);
-  const category = mockCategories.find((cat) => cat.id === categoryId);
-  return category || null;
+  const response = await fetch(
+    `${environment.tmdbApiUrl}/genre/movie/list?api_key=${environment.tmdbApiKey}`,
+  )
+    .then((response) => response.json())
+    .catch((error) => {
+      console.error('Error fetching categories:', error);
+      return { genres: [] };
+    });
+  const categories: Category[] = response.genres.map((genre: any) => ({
+    id: genre.id.toString(),
+    name: genre.name,
+  }));
+  return categories;
 }
 
 /**
@@ -132,19 +176,10 @@ export async function getAllMovies(): Promise<Item[]> {
  * @param movieId - L'identifiant du film
  * @returns Promise<Movie | null>
  */
-export async function getMovieById(movieId: string): Promise<Item | null> {
+export async function getMovieById(movieId: number): Promise<Item | null> {
   await delay(500);
   const movie = mockMovies.find((m) => m.id === movieId);
   return movie || null;
-}
-
-/**
- * Récupère les films mis en avant (featured)
- * @returns Promise<Movie[]>
- */
-export async function getFeaturedMovies(): Promise<Item[]> {
-  await delay(500);
-  return mockMovies.filter((movie) => movie.featured);
 }
 
 /**
@@ -164,10 +199,18 @@ export async function searchMovies(query: string): Promise<Item[]> {
  * @returns Promise<Movie[]>
  */
 export async function getMoviesByGenre(genre: string): Promise<Item[]> {
-  await delay(500);
-  return mockMovies.filter((movie) =>
-    movie.genre.some((g) => g.toLowerCase() === genre.toLowerCase()),
-  );
+  const response = await fetch(
+    `${environment.tmdbApiUrl}/discover/movie?api_key=${environment.tmdbApiKey}&with_genres=${genre}&sort_by=popularity.desc`,
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      return data.results;
+    })
+    .catch((error) => {
+      console.error('Error fetching movies by genre:', error);
+      return [];
+    });
+  return response;
 }
 
 /**

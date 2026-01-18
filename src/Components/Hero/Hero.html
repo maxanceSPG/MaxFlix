@@ -1,10 +1,10 @@
 <div class="hero">
   <div class="background">
-    <img src="{{ movie?.thumbnailUrl }}" alt="{{ movie?.title }}" class="image"/>
+    <img src="{{ backgroundUrl }}" alt="{{ movie?.title }}" class="image"/>
   </div>
   <div class="content">
     <h1 class="title">{{ movie?.title }}</h1>
-    <p class="description">{{ movie?.description }}</p>
+    <p class="description">{{ movie?.overview }}</p>
     <div class="actions">
         <button class="btn playBtn">
             <lucide-icon [img]="Play" class="icon"></lucide-icon>

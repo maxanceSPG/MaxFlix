@@ -63,7 +63,7 @@ export class AuthService {
     return this.currentUser();
   }
 
-  async isUserFavorite(movieId: string): Promise<boolean> {
+  async isUserFavorite(movieId: number): Promise<boolean> {
     const token = this.token();
     if (token) {
       try {
@@ -76,7 +76,7 @@ export class AuthService {
     return false;
   }
 
-  addUserFavorite(movieId: string): Promise<void> {
+  addUserFavorite(movieId: number): Promise<void> {
     const token = this.token();
     if (token) {
       try {
@@ -88,7 +88,7 @@ export class AuthService {
     return Promise.reject('User is not authenticated');
   }
 
-  removeUserFavorite(movieId: string): Promise<void> {
+  removeUserFavorite(movieId: number): Promise<void> {
     const token = this.token();
     if (token) {
       try {

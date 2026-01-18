@@ -22,11 +22,18 @@ export class Hero implements OnChanges {
   showBtnFavorites: boolean = false;
   isInFavorites: boolean = false;
 
+  backgroundUrl: string = '';
+
   readonly Play = Play;
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['movie'] && changes['movie'].currentValue) {
       this.updateFavoriteStatus();
+      if (this.movie) {
+        this.backgroundUrl = 'https://image.tmdb.org/t/p/original/' + this.movie.backdrop_path;
+      } else {
+        this.backgroundUrl = '';
+      }
     }
   }
 

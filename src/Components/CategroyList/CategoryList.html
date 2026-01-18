@@ -1,5 +1,5 @@
 <div class="row">
-  <h3 class="title">{{ category?.title }}</h3>
+  <h3 class="title">{{ category?.name }}</h3>
   @if (showArrows()) {
     <button class="arrow arrowLeft" (click)="onClickArrow('left')">
       <lucide-icon [img]="ChevronLeft" size="30" class="icon"></lucide-icon>
@@ -7,7 +7,7 @@
   }
 
   <div class="container" #categoryList>
-    @for (movie of category?.items; track movie) {
+    @for (movie of items; track movie) {
       <app-card [movie]="movie"></app-card>
     }
   </div>
